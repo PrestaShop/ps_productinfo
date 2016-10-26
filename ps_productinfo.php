@@ -56,7 +56,7 @@ class Ps_Productinfo extends Module
             && Configuration::updateValue('PS_PTOOLTIP_DATE_CART', 1)
             && Configuration::updateValue('PS_PTOOLTIP_DATE_ORDER', 1)
             && Configuration::updateValue('PS_PTOOLTIP_DAYS', 3)
-            && Configuration::updateValue('PS_PTOOLTIP_LIFETIME', 50)
+            && Configuration::updateValue('PS_PTOOLTIP_LIFETIME', 30)
             && $this->registerHook('displayHeader')
             && $this->registerHook('displayProductButtons')
         );
@@ -159,27 +159,27 @@ class Ps_Productinfo extends Module
         $fields_form = array(
             'form' => array(
                 'legend' => array(
-                    'title' => $this->trans('Settings', array(), 'Admin.Actions'),
+                    'title' => $this->trans('Settings', array(), 'Admin.Global'),
                     'icon' => 'icon-cogs',
                 ),
                 'input' => array(
                     array(
                         'type' => 'switch',
-                        'label' => $this->trans('Number of visitors', array(), 'Admin.Actions'),
-                        'desc' => $this->trans('Display the number of visitors who are currently watching this product.', array(), 'Admin.Actions').
+                        'label' => $this->trans('Number of visitors', array(), 'Modules.Productinfo.Admin'),
+                        'desc' => $this->trans('Display the number of visitors who are currently watching this product.', array(), 'Modules.Productinfo.Admin').
                             '<br>'.
-                            $this->trans('If you activate the option above, you must activate the first option ("Save page views for each customer") of the "Data mining for statistics" (StatsData) module.', array(), 'Admin.Actions'),
+                            $this->trans('If you activate the option above, you must activate the first option ("Save page views for each customer") of the "Data mining for statistics" (StatsData) module.', array(), 'Modules.Productinfo.Admin'),
                         'name' => 'PS_PTOOLTIP_PEOPLE',
                         'values' => array(
                             array(
                                 'id' => 'active_on',
                                 'value' => 1,
-                                'label' => $this->trans('Enabled', array(), 'Admin.Actions'),
+                                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
                             ),
                             array(
                                 'id' => 'active_off',
                                 'value' => 0,
-                                'label' => $this->trans('Disabled', array(), 'Admin.Actions'),
+                                'label' => $this->trans('Disabled', array(), 'Admin.Global'),
                             )
                         ),
                     ),
@@ -195,12 +195,12 @@ class Ps_Productinfo extends Module
                             array(
                                 'id' => 'active_on',
                                 'value' => 1,
-                                'label' => $this->trans('Enabled', array(), 'Admin.Actions'),
+                                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
                             ),
                             array(
                                 'id' => 'active_off',
                                 'value' => 0,
-                                'label' => $this->trans('Disabled', array(), 'Admin.Actions'),
+                                'label' => $this->trans('Disabled', array(), 'Admin.Global'),
                             )
                         ),
                     ),
@@ -213,12 +213,12 @@ class Ps_Productinfo extends Module
                             array(
                                 'id' => 'active_on',
                                 'value' => 1,
-                                'label' => $this->trans('Enabled', array(), 'Admin.Actions'),
+                                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
                             ),
                             array(
                                 'id' => 'active_off',
                                 'value' => 0,
-                                'label' => $this->trans('Disabled', array(), 'Admin.Actions'),
+                                'label' => $this->trans('Disabled', array(), 'Admin.Global'),
                             )
                         ),
                     ),
@@ -231,12 +231,12 @@ class Ps_Productinfo extends Module
                             array(
                                 'id' => 'active_on',
                                 'value' => 1,
-                                'label' => $this->trans('Enabled', array(), 'Admin.Actions'),
+                                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
                             ),
                             array(
                                 'id' => 'active_off',
                                 'value' => 0,
-                                'label' => $this->trans('Disabled', array(), 'Admin.Actions'),
+                                'label' => $this->trans('Disabled', array(), 'Admin.Global'),
                             )
                         ),
                     ),
