@@ -23,7 +23,7 @@
 *  International Registered Trademark & Property of PrestaShop SA
 */
 $(document).ready(function () {
-  $('#module-productinfo > p').each(function() {
+  $('.js-productinfo > p').each(function() {
     $.growl({title: '', message: $(this).html()});
     $(this).remove();
   });
