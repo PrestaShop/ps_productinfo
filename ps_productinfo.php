@@ -44,7 +44,7 @@ class Ps_Productinfo extends Module
 
         $this->displayName = $this->trans('Product tooltips', array(), 'Modules.Productinfo.Admin');
         $this->description = $this->trans('Shows information on a product page: how many people are viewing it, the last time it was sold and the last time it was added to a cart.', array(), 'Modules.Productinfo.Admin');
-        $this->ps_versions_compliancy = array('min' => '1.7.0.0', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.7.2.0', 'max' => _PS_VERSION_);
 
         $this->templateFile = 'module:ps_productinfo/views/templates/hook/ps_productinfo.tpl';
     }
