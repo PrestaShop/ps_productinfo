@@ -37,7 +37,7 @@ class Ps_Productinfo extends Module
     {
         $this->name = 'ps_productinfo';
         $this->author = 'PrestaShop';
-        $this->version = '1.0.1';
+        $this->version = '2.0.0';
 
         $this->bootstrap = true;
         parent::__construct();
