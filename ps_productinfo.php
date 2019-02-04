@@ -42,9 +42,9 @@ class Ps_Productinfo extends Module
         $this->bootstrap = true;
         parent::__construct();
 
-        $this->displayName = $this->trans('Product tooltips', array(), 'Modules.Productinfo.Admin');
-        $this->description = $this->trans('Shows information on a product page: how many people are viewing it, the last time it was sold and the last time it was added to a cart.', array(), 'Modules.Productinfo.Admin');
-        $this->ps_versions_compliancy = array('min' => '1.7.2.0', 'max' => _PS_VERSION_);
+        $this->displayName = $this->trans('Product tooltips', [], 'Modules.Productinfo.Admin');
+        $this->description = $this->trans('Shows information on a product page: how many people are viewing it, the last time it was sold and the last time it was added to a cart.', [], 'Modules.Productinfo.Admin');
+        $this->ps_versions_compliancy = ['min' => '1.7.2.0', 'max' => _PS_VERSION_];
 
         $this->templateFile = 'module:ps_productinfo/views/templates/hook/ps_productinfo.tpl';
     }
@@ -86,7 +86,7 @@ class Ps_Productinfo extends Module
             Configuration::updateValue('PS_PTOOLTIP_DAYS', ((int) (Tools::getValue('PS_PTOOLTIP_DAYS') < 0 ? 0 : (int)Tools::getValue('PS_PTOOLTIP_DAYS'))));
             Configuration::updateValue('PS_PTOOLTIP_LIFETIME', ((int) (Tools::getValue('PS_PTOOLTIP_LIFETIME') < 0 ? 0 : (int)Tools::getValue('PS_PTOOLTIP_LIFETIME'))));
 
-            $this->html .= $this->displayConfirmation($this->trans('The settings have been updated.', array(), 'Admin.Notifications.Success'));
+            $this->html .= $this->displayConfirmation($this->trans('The settings have been updated.', [], 'Admin.Notifications.Success'));
         }
 
         $this->html .= $this->renderForm();
@@ -115,7 +115,7 @@ class Ps_Productinfo extends Module
 			WHERE p.id_page_type = 1 AND p.id_object = '.(int)$id_product.' AND cp.time_start > \''.pSQL($date).'\'');
 
             if ($nb_people > 0) {
-                $this->smarty->assign('vars_nb_people', array('%nb_people%' => $nb_people));
+                $this->smarty->assign('vars_nb_people', ['%nb_people%' => $nb_people]);
             }
         }
 
@@ -131,7 +131,7 @@ class Ps_Productinfo extends Module
 			ORDER BY o.date_add DESC');
 
             if ($date_last_order && Validate::isDateFormat($date_last_order) && $date_last_order !== '0000-00-00 00:00:00') {
-                $this->smarty->assign('vars_date_last_order', array('%date_last_order%' => Tools::displayDate($date_last_order)));
+                $this->smarty->assign('vars_date_last_order', ['%date_last_order%' => Tools::displayDate($date_last_order)]);
             } else {
                 /* No sale? display last cart add instead */
                 if (Configuration::get('PS_PTOOLTIP_DATE_CART')) {
@@ -141,7 +141,7 @@ class Ps_Productinfo extends Module
 					WHERE cp.id_product = '.(int)$id_product);
 
                     if ($date_last_cart && Validate::isDateFormat($date_last_cart) && $date_last_cart !== '0000-00-00 00:00:00') {
-                        $this->smarty->assign('vars_date_last_cart', array('%date_last_cart%' => Tools::displayDate($date_last_cart)));
+                        $this->smarty->assign('vars_date_last_cart', ['%date_last_cart%' => Tools::displayDate($date_last_cart)]);
                     }
                 }
             }
@@ -156,102 +156,102 @@ class Ps_Productinfo extends Module
 
     public function renderForm()
     {
-        $fields_form = array(
-            'form' => array(
-                'legend' => array(
-                    'title' => $this->trans('Settings', array(), 'Admin.Global'),
+        $fields_form = [
+            'form' => [
+                'legend' => [
+                    'title' => $this->trans('Settings', [], 'Admin.Global'),
                     'icon' => 'icon-cogs',
-                ),
-                'input' => array(
-                    array(
+                ],
+                'input' => [
+                    [
                         'type' => 'switch',
-                        'label' => $this->trans('Number of visitors', array(), 'Modules.Productinfo.Admin'),
-                        'desc' => $this->trans('Display the number of visitors who are currently watching this product.', array(), 'Modules.Productinfo.Admin').
+                        'label' => $this->trans('Number of visitors', [], 'Modules.Productinfo.Admin'),
+                        'desc' => $this->trans('Display the number of visitors who are currently watching this product.', [], 'Modules.Productinfo.Admin').
                             '<br>'.
-                            $this->trans('If you activate the option above, you must activate the first option ("Save page views for each customer") of the "Data mining for statistics" (StatsData) module.', array(), 'Modules.Productinfo.Admin'),
+                            $this->trans('If you activate the option above, you must activate the first option ("Save page views for each customer") of the "Data mining for statistics" (StatsData) module.', [], 'Modules.Productinfo.Admin'),
                         'name' => 'PS_PTOOLTIP_PEOPLE',
-                        'values' => array(
-                            array(
+                        'values' => [
+                            [
                                 'id' => 'active_on',
                                 'value' => 1,
-                                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
-                            ),
-                            array(
+                                'label' => $this->trans('Enabled', [], 'Admin.Global'),
+                            ],
+                            [
                                 'id' => 'active_off',
                                 'value' => 0,
-                                'label' => $this->trans('Disabled', array(), 'Admin.Global'),
-                            )
-                        ),
-                    ),
-                    array(
+                                'label' => $this->trans('Disabled', [], 'Admin.Global'),
+                            ]
+                        ],
+                    ],
+                    [
                         'type' => 'text',
-                        'label' => $this->trans('Period length', array(), 'Modules.Productinfo.Admin'),
-                        'desc' => $this->trans('Set the reference period length.', array(), 'Modules.Productinfo.Admin').
+                        'label' => $this->trans('Period length', [], 'Modules.Productinfo.Admin'),
+                        'desc' => $this->trans('Set the reference period length.', [], 'Modules.Productinfo.Admin').
                             '<br>'.
-                            $this->trans('For instance, if set to 30 minutes, the module will display the number of visitors in the last 30 minutes.', array(), 'Modules.Productinfo.Admin'),
+                            $this->trans('For instance, if set to 30 minutes, the module will display the number of visitors in the last 30 minutes.', [], 'Modules.Productinfo.Admin'),
                         'name' => 'PS_PTOOLTIP_LIFETIME',
-                        'suffix' => $this->trans('minutes', array(), 'Modules.Productinfo.Admin'),
-                        'values' => array(
-                            array(
+                        'suffix' => $this->trans('minutes', [], 'Modules.Productinfo.Admin'),
+                        'values' => [
+                            [
                                 'id' => 'active_on',
                                 'value' => 1,
-                                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
-                            ),
-                            array(
+                                'label' => $this->trans('Enabled', [], 'Admin.Global'),
+                            ],
+                            [
                                 'id' => 'active_off',
                                 'value' => 0,
-                                'label' => $this->trans('Disabled', array(), 'Admin.Global'),
-                            )
-                        ),
-                    ),
-                    array(
+                                'label' => $this->trans('Disabled', [], 'Admin.Global'),
+                            ]
+                        ],
+                    ],
+                    [
                         'type' => 'switch',
-                        'label' => $this->trans('Last order date', array(), 'Modules.Productinfo.Admin'),
-                        'desc' => $this->trans('Display the last time the product has been ordered.', array(), 'Modules.Productinfo.Admin'),
+                        'label' => $this->trans('Last order date', [], 'Modules.Productinfo.Admin'),
+                        'desc' => $this->trans('Display the last time the product has been ordered.', [], 'Modules.Productinfo.Admin'),
                         'name' => 'PS_PTOOLTIP_DATE_ORDER',
-                        'values' => array(
-                            array(
+                        'values' => [
+                            [
                                 'id' => 'active_on',
                                 'value' => 1,
-                                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
-                            ),
-                            array(
+                                'label' => $this->trans('Enabled', [], 'Admin.Global'),
+                            ],
+                            [
                                 'id' => 'active_off',
                                 'value' => 0,
-                                'label' => $this->trans('Disabled', array(), 'Admin.Global'),
-                            )
-                        ),
-                    ),
-                    array(
+                                'label' => $this->trans('Disabled', [], 'Admin.Global'),
+                            ]
+                        ],
+                    ],
+                    [
                         'type' => 'switch',
-                        'label' => $this->trans('Added to a cart', array(), 'Modules.Productinfo.Admin'),
-                        'desc' => $this->trans('If the product has not been ordered yet, display the last time it was added to a cart.', array(), 'Modules.Productinfo.Admin'),
+                        'label' => $this->trans('Added to a cart', [], 'Modules.Productinfo.Admin'),
+                        'desc' => $this->trans('If the product has not been ordered yet, display the last time it was added to a cart.', [], 'Modules.Productinfo.Admin'),
                         'name' => 'PS_PTOOLTIP_DATE_CART',
-                        'values' => array(
-                            array(
+                        'values' => [
+                            [
                                 'id' => 'active_on',
                                 'value' => 1,
-                                'label' => $this->trans('Enabled', array(), 'Admin.Global'),
-                            ),
-                            array(
+                                'label' => $this->trans('Enabled', [], 'Admin.Global'),
+                            ],
+                            [
                                 'id' => 'active_off',
                                 'value' => 0,
-                                'label' => $this->trans('Disabled', array(), 'Admin.Global'),
-                            )
-                        ),
-                    ),
-                    array(
+                                'label' => $this->trans('Disabled', [], 'Admin.Global'),
+                            ]
+                        ],
+                    ],
+                    [
                         'type' => 'text',
-                        'label' => $this->trans('Do not display events older than', array(), 'Modules.Productinfo.Admin'),
+                        'label' => $this->trans('Do not display events older than', [], 'Modules.Productinfo.Admin'),
                         'name' => 'PS_PTOOLTIP_DAYS',
-                        'suffix' => $this->trans('days', array(), 'Modules.Productinfo.Admin'),
-                    ),
-                ),
-                'submit' => array(
-                    'title' => $this->trans('Save', array(), 'Admin.Actions'),
-                )
-            ),
-        );
+                        'suffix' => $this->trans('days', [], 'Modules.Productinfo.Admin'),
+                    ],
+                ],
+                'submit' => [
+                    'title' => $this->trans('Save', [], 'Admin.Actions'),
+                ]
+            ],
+        ];
 
         $lang = new Language((int)Configuration::get('PS_LANG_DEFAULT'));
 
@@ -264,23 +264,23 @@ class Ps_Productinfo extends Module
         $helper->submit_action = 'SubmitToolTip';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false).'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->tpl_vars = array(
+        $helper->tpl_vars = [
             'fields_value' => $this->getConfigFieldsValues(),
             'languages' => $this->context->controller->getLanguages(),
             'id_language' => $this->context->language->id
-        );
+        ];
 
-        return $helper->generateForm(array($fields_form));
+        return $helper->generateForm([$fields_form]);
     }
 
     public function getConfigFieldsValues()
     {
-        return array(
+        return [
             'PS_PTOOLTIP_PEOPLE' => Tools::getValue('PS_PTOOLTIP_PEOPLE', Configuration::get('PS_PTOOLTIP_PEOPLE')),
             'PS_PTOOLTIP_LIFETIME' => Tools::getValue('PS_PTOOLTIP_LIFETIME', Configuration::get('PS_PTOOLTIP_LIFETIME')),
             'PS_PTOOLTIP_DATE_ORDER' => Tools::getValue('PS_PTOOLTIP_DATE_ORDER', Configuration::get('PS_PTOOLTIP_DATE_ORDER')),
             'PS_PTOOLTIP_DATE_CART' => Tools::getValue('PS_PTOOLTIP_DATE_CART', Configuration::get('PS_PTOOLTIP_DATE_CART')),
             'PS_PTOOLTIP_DAYS' => Tools::getValue('PS_PTOOLTIP_DAYS', Configuration::get('PS_PTOOLTIP_DAYS')),
-        );
+        ];
     }
 }
