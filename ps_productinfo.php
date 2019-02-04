@@ -83,8 +83,8 @@ class Ps_Productinfo extends Module
             Configuration::updateValue('PS_PTOOLTIP_PEOPLE', (int) Tools::getValue('PS_PTOOLTIP_PEOPLE'));
             Configuration::updateValue('PS_PTOOLTIP_DATE_CART', (int) Tools::getValue('PS_PTOOLTIP_DATE_CART'));
             Configuration::updateValue('PS_PTOOLTIP_DATE_ORDER', (int) Tools::getValue('PS_PTOOLTIP_DATE_ORDER'));
-            Configuration::updateValue('PS_PTOOLTIP_DAYS', ((int) (Tools::getValue('PS_PTOOLTIP_DAYS') < 0 ? 0 : (int)Tools::getValue('PS_PTOOLTIP_DAYS'))));
-            Configuration::updateValue('PS_PTOOLTIP_LIFETIME', ((int) (Tools::getValue('PS_PTOOLTIP_LIFETIME') < 0 ? 0 : (int)Tools::getValue('PS_PTOOLTIP_LIFETIME'))));
+            Configuration::updateValue('PS_PTOOLTIP_DAYS', ((int) (Tools::getValue('PS_PTOOLTIP_DAYS') < 0 ? 0 : (int) Tools::getValue('PS_PTOOLTIP_DAYS'))));
+            Configuration::updateValue('PS_PTOOLTIP_LIFETIME', ((int) (Tools::getValue('PS_PTOOLTIP_LIFETIME') < 0 ? 0 : (int) Tools::getValue('PS_PTOOLTIP_LIFETIME'))));
 
             $this->html .= $this->displayConfirmation($this->trans('The settings have been updated.', array(), 'Admin.Notifications.Success'));
         }
@@ -112,7 +112,7 @@ class Ps_Productinfo extends Module
 			SELECT COUNT(DISTINCT(id_connections)) nb
 			FROM '._DB_PREFIX_.'page p
 			LEFT JOIN '._DB_PREFIX_.'connections_page cp ON (p.id_page = cp.id_page)
-			WHERE p.id_page_type = 1 AND p.id_object = '.(int)$id_product.' AND cp.time_start > \''.pSQL($date).'\'');
+			WHERE p.id_page_type = 1 AND p.id_object = '.(int) $id_product.' AND cp.time_start > \''.pSQL($date).'\'');
 
             if ($nb_people > 0) {
                 $this->smarty->assign('vars_nb_people', array('%nb_people%' => $nb_people));
@@ -127,7 +127,7 @@ class Ps_Productinfo extends Module
 			SELECT o.date_add
 			FROM '._DB_PREFIX_.'order_detail od
 			LEFT JOIN '._DB_PREFIX_.'orders o ON (od.id_order = o.id_order)
-			WHERE od.product_id = '.(int)$id_product.' AND o.date_add >= \''.pSQL($date).'\'
+			WHERE od.product_id = '.(int) $id_product.' AND o.date_add >= \''.pSQL($date).'\'
 			ORDER BY o.date_add DESC');
 
             if ($date_last_order && Validate::isDateFormat($date_last_order) && $date_last_order !== '0000-00-00 00:00:00') {
@@ -138,7 +138,7 @@ class Ps_Productinfo extends Module
                     $date_last_cart = Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
 					SELECT cp.date_add
 					FROM '._DB_PREFIX_.'cart_product cp
-					WHERE cp.id_product = '.(int)$id_product);
+					WHERE cp.id_product = '.(int) $id_product);
 
                     if ($date_last_cart && Validate::isDateFormat($date_last_cart) && $date_last_cart !== '0000-00-00 00:00:00') {
                         $this->smarty->assign('vars_date_last_cart', array('%date_last_cart%' => Tools::displayDate($date_last_cart)));
@@ -253,7 +253,7 @@ class Ps_Productinfo extends Module
             ),
         );
 
-        $lang = new Language((int)Configuration::get('PS_LANG_DEFAULT'));
+        $lang = new Language((int) Configuration::get('PS_LANG_DEFAULT'));
 
         $helper = new HelperForm();
         $helper->show_toolbar = false;
