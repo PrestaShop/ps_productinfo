@@ -97,7 +97,7 @@ class Ps_Productinfo extends Module
     public function hookDisplayHeader($params)
     {
         $this->context->controller->addJQueryPlugin('growl');
-        $this->context->controller->registerJavascript('modules-ps_productinfo', 'modules/'.$this->name.'/js/ps_productinfo.js', ['position' => 'bottom', 'priority' => 150]);
+        $this->context->controller->registerJavascript('modules-ps_productinfo', 'modules/' . $this->name . '/js/ps_productinfo.js', ['position' => 'bottom', 'priority' => 150]);
     }
 
     public function hookDisplayProductButtons($params)
@@ -110,9 +110,9 @@ class Ps_Productinfo extends Module
 
             $nb_people = (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
 			SELECT COUNT(DISTINCT(id_connections)) nb
-			FROM '._DB_PREFIX_.'page p
-			LEFT JOIN '._DB_PREFIX_.'connections_page cp ON (p.id_page = cp.id_page)
-			WHERE p.id_page_type = 1 AND p.id_object = '.(int)$id_product.' AND cp.time_start > \''.pSQL($date).'\'');
+			FROM ' . _DB_PREFIX_ . 'page p
+			LEFT JOIN ' . _DB_PREFIX_ . 'connections_page cp ON (p.id_page = cp.id_page)
+			WHERE p.id_page_type = 1 AND p.id_object = ' . (int)$id_product . ' AND cp.time_start > \'' . pSQL($date) . '\'');
 
             if ($nb_people > 0) {
                 $this->smarty->assign('vars_nb_people', array('%nb_people%' => $nb_people));
@@ -125,9 +125,9 @@ class Ps_Productinfo extends Module
 
             $date_last_order = Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
 			SELECT o.date_add
-			FROM '._DB_PREFIX_.'order_detail od
-			LEFT JOIN '._DB_PREFIX_.'orders o ON (od.id_order = o.id_order)
-			WHERE od.product_id = '.(int)$id_product.' AND o.date_add >= \''.pSQL($date).'\'
+			FROM ' . _DB_PREFIX_ . 'order_detail od
+			LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (od.id_order = o.id_order)
+			WHERE od.product_id = ' . (int)$id_product . ' AND o.date_add >= \'' . pSQL($date) . '\'
 			ORDER BY o.date_add DESC');
 
             if ($date_last_order && Validate::isDateFormat($date_last_order) && $date_last_order !== '0000-00-00 00:00:00') {
@@ -137,8 +137,8 @@ class Ps_Productinfo extends Module
                 if (Configuration::get('PS_PTOOLTIP_DATE_CART')) {
                     $date_last_cart = Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
 					SELECT cp.date_add
-					FROM '._DB_PREFIX_.'cart_product cp
-					WHERE cp.id_product = '.(int)$id_product);
+					FROM ' . _DB_PREFIX_ . 'cart_product cp
+					WHERE cp.id_product = ' . (int)$id_product);
 
                     if ($date_last_cart && Validate::isDateFormat($date_last_cart) && $date_last_cart !== '0000-00-00 00:00:00') {
                         $this->smarty->assign('vars_date_last_cart', array('%date_last_cart%' => Tools::displayDate($date_last_cart)));
@@ -166,8 +166,8 @@ class Ps_Productinfo extends Module
                     array(
                         'type' => 'switch',
                         'label' => $this->trans('Number of visitors', array(), 'Modules.Productinfo.Admin'),
-                        'desc' => $this->trans('Display the number of visitors who are currently watching this product.', array(), 'Modules.Productinfo.Admin').
-                            '<br>'.
+                        'desc' => $this->trans('Display the number of visitors who are currently watching this product.', array(), 'Modules.Productinfo.Admin') .
+                            '<br>' .
                             $this->trans('If you activate the option above, you must activate the first option ("Save page views for each customer") of the "Data mining for statistics" (StatsData) module.', array(), 'Modules.Productinfo.Admin'),
                         'name' => 'PS_PTOOLTIP_PEOPLE',
                         'values' => array(
@@ -186,8 +186,8 @@ class Ps_Productinfo extends Module
                     array(
                         'type' => 'text',
                         'label' => $this->trans('Period length', array(), 'Modules.Productinfo.Admin'),
-                        'desc' => $this->trans('Set the reference period length.', array(), 'Modules.Productinfo.Admin').
-                            '<br>'.
+                        'desc' => $this->trans('Set the reference period length.', array(), 'Modules.Productinfo.Admin') .
+                            '<br>' .
                             $this->trans('For instance, if set to 30 minutes, the module will display the number of visitors in the last 30 minutes.', array(), 'Modules.Productinfo.Admin'),
                         'name' => 'PS_PTOOLTIP_LIFETIME',
                         'suffix' => $this->trans('minutes', array(), 'Modules.Productinfo.Admin'),
@@ -262,7 +262,7 @@ class Ps_Productinfo extends Module
         $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'SubmitToolTip';
-        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false).'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
+        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->tpl_vars = array(
             'fields_value' => $this->getConfigFieldsValues(),
