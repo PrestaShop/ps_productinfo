@@ -73,6 +73,7 @@ class Ps_Productinfo extends Module
             !Configuration::deleteByName('PS_PTOOLTIP_LIFETIME')) {
             return false;
         }
+
         return true;
     }
 
