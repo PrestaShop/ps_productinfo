@@ -31,6 +31,7 @@ if (!defined('_PS_VERSION_')) {
 class Ps_Productinfo extends Module
 {
     protected $html;
+
     protected $templateFile;
 
     public function __construct()
