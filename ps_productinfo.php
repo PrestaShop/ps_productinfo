@@ -104,7 +104,7 @@ class Ps_Productinfo extends Module
     {
         $id_product = (is_object($params['product']) ? (int) $params['product']->id : (int) $params['product']['id_product']);
 
-        /* First we try to display the number of people who are currently watching this product page */
+        // First we try to display the number of people who are currently watching this product page
         if (Configuration::get('PS_PTOOLTIP_PEOPLE')) {
             $date = strftime('%Y-%m-%d %H:%M:%S', time() - (int) (Configuration::get('PS_PTOOLTIP_LIFETIME') * 60));
 
@@ -119,7 +119,7 @@ class Ps_Productinfo extends Module
             }
         }
 
-        /* Then, we try to display last sale */
+        // Then, we try to display last sale
         if (Configuration::get('PS_PTOOLTIP_DATE_ORDER')) {
             $date = strftime('%Y-%m-%d', strtotime('-' . (int) Configuration::get('PS_PTOOLTIP_DAYS') . ' day'));
 
@@ -133,7 +133,7 @@ class Ps_Productinfo extends Module
             if ($date_last_order && Validate::isDateFormat($date_last_order) && $date_last_order !== '0000-00-00 00:00:00') {
                 $this->smarty->assign('vars_date_last_order', array('%date_last_order%' => Tools::displayDate($date_last_order)));
             } else {
-                /* No sale? display last cart add instead */
+                // No sale? display last cart add instead
                 if (Configuration::get('PS_PTOOLTIP_DATE_CART')) {
                     $date_last_cart = Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
 					SELECT cp.date_add
