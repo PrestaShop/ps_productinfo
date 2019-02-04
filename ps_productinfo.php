@@ -180,7 +180,7 @@ class Ps_Productinfo extends Module
                                 'id' => 'active_off',
                                 'value' => 0,
                                 'label' => $this->trans('Disabled', array(), 'Admin.Global'),
-                            )
+                            ),
                         ),
                     ),
                     array(
@@ -201,7 +201,7 @@ class Ps_Productinfo extends Module
                                 'id' => 'active_off',
                                 'value' => 0,
                                 'label' => $this->trans('Disabled', array(), 'Admin.Global'),
-                            )
+                            ),
                         ),
                     ),
                     array(
@@ -219,7 +219,7 @@ class Ps_Productinfo extends Module
                                 'id' => 'active_off',
                                 'value' => 0,
                                 'label' => $this->trans('Disabled', array(), 'Admin.Global'),
-                            )
+                            ),
                         ),
                     ),
                     array(
@@ -237,7 +237,7 @@ class Ps_Productinfo extends Module
                                 'id' => 'active_off',
                                 'value' => 0,
                                 'label' => $this->trans('Disabled', array(), 'Admin.Global'),
-                            )
+                            ),
                         ),
                     ),
                     array(
@@ -249,7 +249,7 @@ class Ps_Productinfo extends Module
                 ),
                 'submit' => array(
                     'title' => $this->trans('Save', array(), 'Admin.Actions'),
-                )
+                ),
             ),
         );
 
@@ -267,7 +267,7 @@ class Ps_Productinfo extends Module
         $helper->tpl_vars = array(
             'fields_value' => $this->getConfigFieldsValues(),
             'languages' => $this->context->controller->getLanguages(),
-            'id_language' => $this->context->language->id
+            'id_language' => $this->context->language->id,
         );
 
         return $helper->generateForm(array($fields_form));
