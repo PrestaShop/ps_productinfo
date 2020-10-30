@@ -43,7 +43,7 @@ class Ps_Productinfo extends Module
         parent::__construct();
 
         $this->displayName = $this->trans('Product tooltips', array(), 'Modules.Productinfo.Admin');
-        $this->description = $this->trans('Enrich your stats, add detailed statistics for each product of your catalog.', array(), 'Modules.Productinfo.Admin');
+        $this->description = $this->trans('Get animated tooltip blocks on each product page that display information about your sales.', array(), 'Modules.Productinfo.Admin');
         $this->ps_versions_compliancy = array('min' => '1.7.2.0', 'max' => _PS_VERSION_);
 
         $this->templateFile = 'module:ps_productinfo/views/templates/hook/ps_productinfo.tpl';
