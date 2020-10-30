@@ -2,7 +2,7 @@
 
 ## About
 
-Enrich your stats, add detailed statistics for each product of your catalog.
+Get animated tooltip blocks on each product page that display information about your sales.
 
 ## Multistore compatibility
 
