@@ -2,7 +2,7 @@
 
 ## About
 
-Shows information on a product page: how many people are viewing it, the last time it was sold and the last time it was added to a cart.
+Get animated tooltip blocks on each product page that display information about your sales.
 
 ## Multistore compatibility
 
