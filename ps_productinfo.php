@@ -30,6 +30,11 @@ if (!defined('_PS_VERSION_')) {
 
 class Ps_Productinfo extends Module
 {
+    /**
+     * @var string Name of the module running on PS 1.6.x. Used for data migration.
+     */
+    const PS_16_EQUIVALENT_MODULE = 'producttooltip';
+
     protected $html;
     protected $templateFile;
 
@@ -51,12 +56,15 @@ class Ps_Productinfo extends Module
 
     public function install()
     {
+        if (!$this->uninstallPrestaShop16Module()) {
+            // No PS 1.6 module was removed, setting data.
+            Configuration::updateValue('PS_PTOOLTIP_PEOPLE', 1);
+            Configuration::updateValue('PS_PTOOLTIP_DATE_CART', 1);
+            Configuration::updateValue('PS_PTOOLTIP_DATE_ORDER', 1);
+            Configuration::updateValue('PS_PTOOLTIP_DAYS', 3);
+            Configuration::updateValue('PS_PTOOLTIP_LIFETIME', 30);
+        }
         return (parent::install()
-            && Configuration::updateValue('PS_PTOOLTIP_PEOPLE', 1)
-            && Configuration::updateValue('PS_PTOOLTIP_DATE_CART', 1)
-            && Configuration::updateValue('PS_PTOOLTIP_DATE_ORDER', 1)
-            && Configuration::updateValue('PS_PTOOLTIP_DAYS', 3)
-            && Configuration::updateValue('PS_PTOOLTIP_LIFETIME', 30)
             && $this->registerHook('displayHeader')
             && $this->registerHook('displayProductButtons')
         );
@@ -71,6 +79,27 @@ class Ps_Productinfo extends Module
             !Configuration::deleteByName('PS_PTOOLTIP_DAYS') ||
             !Configuration::deleteByName('PS_PTOOLTIP_LIFETIME')) {
             return false;
+        }
+        return true;
+    }
+
+    /**
+     * Migrate data from 1.6 equivalent module (if applicable), then uninstall
+     */
+    public function uninstallPrestaShop16Module()
+    {
+        if (!Module::isInstalled(self::PS_16_EQUIVALENT_MODULE)) {
+            return false;
+        }
+        $oldModule = Module::getInstanceByName(self::PS_16_EQUIVALENT_MODULE);
+        if ($oldModule) {
+            // This closure calls the parent class to prevent data to be erased
+            // It allows the new module to be configured without migration
+            $parentUninstallClosure = function() {
+                return parent::uninstall();
+            };
+            $parentUninstallClosure = $parentUninstallClosure->bindTo($oldModule, get_class($oldModule));
+            $parentUninstallClosure();
         }
         return true;
     }
